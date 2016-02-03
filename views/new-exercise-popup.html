@@ -1,0 +1,20 @@
+<div class="list">
+	<div class="item item-toggle" style="font-size : small" ng-if="!hideCircuit">
+		Circuit/Super Set
+		<label class="toggle toggle-positive">
+			<input type="checkbox" ng-model="selectedExercise.isCircuit">
+			<div class="track">
+				<div class="handle"></div>
+			</div>
+		</label>
+	</div>
+	<label class="item item-input">
+    	<input type="text" placeholder="Exercise Name" ng-model="selectedExercise.name">
+  	</label>
+  	<div class="item" ng-if="selectedExercise.name" ng-repeat="item in exerciseDb | filter:{name:selectedExercise.name} | limitTo:20 | orderBy:stringLen:reverse" ng-click="selectedExercise.name = item.name; selectedExercise.key = item.key" ng-hide="selectedExercise.isCircuit" style="font-size : small">
+		{{item.name}}
+	</div>
+</div>
+
+
+

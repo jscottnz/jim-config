@@ -1,0 +1,21 @@
+ <ion-popover-view>
+ 	
+	<ion-header-bar>
+      <h3 class="title">Add Exercise</h3>
+    </ion-header-bar>
+	<ion-content>
+		<div class="list">
+			<div class="item item-input-inset">
+    			<label class="">
+      				<input type="text" placeholder="Search Here" ng-model="newItemInput">
+    			</label>
+    			<button class="button button-positive button-clear icon icon-right ion-plus-round" ng-click="openPopoverOptions.addNewItem(newItemInput)"></button>
+  			</div>
+  			<div class="item" ng-if="newItemInput" ng-repeat="item in openPopoverOptions.exerciseDb | filter:{name:newItemInput} | limitTo:5 | orderBy:openPopoverOptions.stringLen:reverse" ng-click="openPopoverOptions.addNewItem(item)">
+    			{{item.name}}
+  			</div>
+		  	
+		</div>
+
+ 	</ion-content>
+</ion-popover-view>

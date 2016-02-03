@@ -1,0 +1,147 @@
+<ion-view view-title="Set">
+
+	<ion-nav-buttons side="secondary">
+		<button class="button button-positive button-clear icon icon-right ion-ios-cloud-upload-outline" ng-click="save()"></button>
+  </ion-nav-buttons>
+ 	
+ 	<ion-content>
+
+    <ion-list can-swipe="set.isCircuit" delegate-handle="setExercise">
+      
+      <span ng-if="!set.isCircuit">
+        <ion-item class="item">
+          <h2>{{exercise.name}}</h2>
+          <p ng-if="set.repsOrTime == 'reps'">
+            <span>{{set.reps}} reps</span>
+            <span ng-if="set.wieght > 0"> X <span ng-if="set.units != 'bodyweight'">{{set.wieght}}</span> {{set.units}}</span>
+          </p>
+          <p ng-if="set.repsOrTime == 'time'">
+            <span>{{set.time}} {{set.timeSecondsOrMinutes}}</span>
+            <span ng-if="set.wieght > 0"> @ <span ng-if="set.units != 'bodyweight'">{{set.wieght}}</span> {{set.units}}</span>
+          </p>
+        </ion-item>
+      </span>
+
+      <span ng-if="set.isCircuit && !set.circuitExercise.name">
+        <div class="item item-divider">
+          Circuit Exercise
+        </div>
+
+        
+        <div class="item item-text-wrap">
+          This set is part of a circuit or super set. Please select the exercise for this set.
+        </div>
+
+        <button class="item button button-block button-positive" ng-click="selectCircuitExercise(set)">
+          Select Exercise
+        </button>
+      </span>
+
+      <ion-item class="item" ng-if="set.isCircuit && set.circuitExercise.name">
+        <h2>{{set.circuitExercise.name}}</h2>
+        <ion-option-button class="button-positive" ng-click="selectCircuitExercise(set)">
+          Select Exercise
+        </ion-option-button> 
+      </ion-item>
+
+    </ion-list>
+
+    <span ng-if="!set.isCircuit || set.isCircuit && set.circuitExercise.name">
+
+      <div class="list card">
+        <div class="item item-divider">
+          Measured
+        </div>
+
+        <div class="item item-text-wrap">
+          Sets can be measured in Reps or in Time
+        </div>
+
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Mesurement
+          </div>
+          <select ng-model="set.repsOrTime">
+            <option value="reps">Reps</option>
+            <option value="time">Time</option>
+          </select>
+        </label>
+   		</div>
+
+      <div ng-if="set.repsOrTime == 'reps'" class="list card">
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Reps
+          </div>
+          <select ng-model="set.reps" ng-options="val for val in repsRange"></select>
+        </label>   
+      </div>
+
+      <div ng-if="set.repsOrTime == 'time'">
+        <div class="list card">
+          <div class="item item-divider">
+            Time
+          </div>
+
+          <label class="item item-input item-select">
+            <div class="input-label">
+              Seconds or Minutes
+            </div>
+            <select ng-model="set.timeSecondsOrMinutes">
+              <option value="seconds">Seconds</option>
+              <option value="minutes">Minutes</option>
+            </select>
+          </label>
+
+          <label class="item item-input item-select" ng-if="set.timeSecondsOrMinutes == 'seconds'">
+            <div class="input-label">
+                Time (m:ss)
+            </div>
+            <select ng-model="set.time" ng-options="renderTime(val) for val in secondsRange"></select>
+          </label>
+            
+          <label class="item item-input item-select" ng-if="set.timeSecondsOrMinutes == 'minutes'">
+            <div class="input-label">
+                Time (h:mm)
+            </div>
+            <select ng-model="set.time" ng-options="renderHoursMinutes(val) for val in minutesRange"></select>
+          </label>
+        </div>
+      </div>
+
+      <div class="list card">
+          <div class="item item-divider">
+            Weight
+          </div>
+
+          <label class="item item-input item-select">
+            <div class="input-label">
+              Unit
+            </div>
+            <select ng-model="set.units" ng-options="val for val in ['lbs', 'kgs', 'plate', 'bodyweight']"></select>
+          </label>
+          
+          <label class="item item-input item-select" ng-hide="set.units == 'bodyweight'">
+            <div class="input-label">
+                Weight
+            </div>
+            <select ng-model="set.wieght" ng-options="val for val in weightRange"></select>
+          </label>
+      </div>
+
+      <div class="list card">
+        <div class="item item-divider">
+          Rest
+        </div>
+
+        <label class="item item-input item-select">
+          <div class="input-label">
+              Rest (m:ss)
+          </div>
+          <select ng-model="set.rest" ng-options="renderTime(val) for val in restRange"></select>
+        </label>
+      </div>
+    </span>
+ 	</ion-content>
+
+</ion-view>

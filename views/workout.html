@@ -1,0 +1,37 @@
+<ion-view view-title="Days">
+	<ion-nav-buttons side="secondary">
+		<button class="button button-positive button-clear icon icon-right ion-ios-cloud-upload-outline" ng-click="save()"></button>
+    </ion-nav-buttons>
+ 	<ion-content>
+ 		
+ 		<ul class="list">
+		    <li class="item">
+		      {{workout.name}}
+		    </li>
+		</ul>
+
+		<ion-list can-swipe="true" delegate-handle="days">
+ 			<ion-item class="item-icon-left" ng-repeat="day in workout.days" ng-click="gotoDay({day : day, days : workout.days})">
+ 				<i class="icon ion-android-done" ng-class="{ balanced : day == dataService.chosenDay }" ng-click="chooseDay(day); $event.stopPropagation();"></i>
+ 				<h2>
+		    		{{day.name}}
+			    </h2>
+			    <p ng-if="day.exercises.length == 0">Add some Exercises</p>
+			    <p ng-if="day.exercises.length != 0">{{day.exercises.length}} Exercises</p>
+
+			    <ion-option-button class="button-positive" ng-click="editDayName(day)">
+			      Rename
+			    </ion-option-button>
+			    <ion-option-button class="button-assertive" ng-click="deleteDay(workout, day)">
+			      Delete
+			    </ion-option-button>
+ 			</ion-item>
+ 		</ion-list>
+
+		<div>
+			<button class="button button-positive button-clear icon icon-right ion-plus-round" ng-click="showAddNew(workout)"></button>
+			<span ng-if="workout.days.length == 0">(Add a day here)</span>
+		</div>
+ 	</ion-content>
+
+</ion-view>

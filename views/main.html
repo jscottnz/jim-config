@@ -1,0 +1,178 @@
+
+<h1>Workout Manager</h1>
+<button class="btn btn-success" type="submit" ng-click="save()">Save</button>
+
+
+
+<accordion ng-repeat="workout in data.workouts" close-others="false" >
+
+  <accordion-group heading="{{workout.name}}" is-open="workout.isOpen" ng-init="workout.isOpen = workout.isOpen || false" class="bg-info">
+
+      <accordion-group heading="Edit Workout">
+        <div class="form">
+          <div class="form-group">
+            <label>Edit Workout</label>
+            <input ng-model="workout.name">
+          </div>
+           <button type="submit" class="btn btn-danger" ng-click="deleteWorkout(workout)">Delete</button>
+        </div>
+      </accordion-group>
+
+      <accordion-group heading="{{day.name}}" ng-repeat="day in workout.days" ng-if="workout.isOpen" is-open="day.isOpen" ng-init="day.isOpen = day.isOpen || false">
+      
+        <div ng-if="day != chosenDay">
+          <button class="btn btn-success" type="submit" ng-click="choose(day)">Choose Day</button>  
+        </div>
+
+        <accordion-group heading="{{exercise.name}}" ng-repeat="exercise in day.exercises" ng-if="day.isOpen" is-open="exercise.isOpen" ng-init="exercise.isOpen = exercise.isOpen || false">
+
+          <accordion-group heading="Edit Exercise...">
+            <div class="form">
+              <div class="form-group">
+                <label>Edit Exercise</label>
+                <input type="text" ng-model="exercise.name" 
+                    typeahead="exercise as exercise.name for exercise in exerciseDb | filter:{name:$viewValue} | limitTo:20 | orderBy:stringLen:reverse" class="form-control">
+              </div>
+               <button type="submit" class="btn btn-danger" ng-click="deleteExercise(day, exercise)">Delete</button>
+               <button type="submit" class="btn btn-primary" ng-click="cloneExercise(day, exercise)">Clone Exercise</button>
+            </div>
+          </accordion-group>
+
+          <accordion-group heading="{{set.circuitExercise.name || set.circuitExercise}} {{set.reps}} X {{set.wieght}} {{set.units}}" ng-repeat="set in exercise.sets" ng-if="exercise.isOpen" is-open="set.isOpen" ng-init="set.isOpen = set.isOpen || false">
+            <div class="form">
+              <div class="form-group" ng-if="exercise.isCircuit">
+                <label>Add New Exercise:</label>
+                <input type="text" ng-model="set.circuitExercise" 
+                      typeahead="exercise as exercise.name for exercise in exerciseDb | filter:{name:$viewValue} | limitTo:20 | orderBy:stringLen:reverse" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>Reps</label>
+                <select class="form-control" ng-model="set.reps" ng-options="val for val in repsRange"></select>
+              </div>
+              <div class="form-group">
+                <label>Measure</label>
+                <select class="form-control" ng-model="set.units" ng-options="val for val in ['lbs', 'kgs', 'plate', 'bodyweight', 'minutes']"></select>
+              </div>
+              <div class="form-group" ng-if="set.units != 'minutes'">
+                <label>Units</label>
+                <select class="form-control" ng-model="set.wieght" ng-options="val for val in weightRange"></select>
+              </div>
+              <div class="form-group" ng-if="set.units == 'minutes'">
+                <label>Time</label>
+                <select class="form-control" ng-model="set.wieght" ng-options="renderTime(val) for val in minsRange"></select>
+              </div>
+              
+              <div class="form-group">
+                <label>Rest</label>
+                <select class="form-control" ng-model="set.rest" ng-options="val for val in restRange"></select>
+              </div>
+              <button type="submit" class="btn btn-danger" ng-click="deleteSet(exercise, set)">Delete</button>
+              <button type="submit" class="btn btn-primary" ng-click="cloneSet(exercise, set)">Clone Set</button>
+            </div>
+          </accordion-group>
+
+          
+                 
+          <accordion-group heading="New Set..." is-open="exercise.newSetIsOpen" ng-init="exercise.newSetIsOpen = exercise.newSetIsOpen || false">
+            <div class="form">
+              <div class="form-group">
+                <label>New Set</label>
+              </div>
+
+              <div class="form-group" ng-if="exercise.isCircuit">
+                <label>Add New Exercise:</label>
+                <input type="text" ng-model="newItems.circuitExercise" 
+                      typeahead="exercise as exercise.name for exercise in exerciseDb | filter:{name:$viewValue} | limitTo:20 | orderBy:stringLen:reverse" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <label>Reps</label>
+                <select class="form-control" ng-model="newItems.setReps" ng-options="val for val in repsRange"></select>
+              </div>
+              
+              <div class="form-group">
+                <label>Measure</label>
+                <select class="form-control" ng-model="newItems.setUnits" ng-options="val for val in ['lbs', 'kgs', 'plate', 'bodyweight', 'minutes']"></select>
+              </div>
+
+              <div class="form-group" ng-if="newItems.setUnits != 'minutes'">
+                <label>Units</label>
+                <select class="form-control" ng-model="newItems.setWeight" ng-options="val for val in weightRange"></select>
+              </div>
+
+              <div class="form-group" ng-if="newItems.setUnits == 'minutes'">
+                <label>Time</label>
+                <select class="form-control" ng-model="newItems.setWeight" ng-options="renderTime(val) for val in minsRange"></select>
+              </div>
+
+              
+              <div class="form-group">
+                <label>Rest</label>
+                <select class="form-control" ng-model="newItems.setRest" ng-options="val for val in restRange"></select>
+              </div>
+              <button type="submit" class="btn btn-default" ng-click="addNewSet(exercise, newItems.setReps, newItems.setWeight, newItems.setUnits, newItems.setRest, newItems.circuitExercise)">Add</button>
+            </div>
+          </accordion-group>
+           
+          
+        </accordion-group> 
+
+        <accordion-group heading="Edit Day...">
+          <div class="form">
+            <div class="form-group">
+              <label>Edit Day</label>
+              <input type="text" ng-model="day.name" 
+                    typeahead="exercise as exercise.name for exercise in exerciseDb | filter:{name:$viewValue} | limitTo:20" class="form-control">
+              
+            </div>
+             <button type="submit" class="btn btn-danger" ng-click="deleteDay(workout, day)">Delete</button>
+          </div>
+        </accordion-group>
+
+        <accordion-group heading="Add New Exercise..." is-open="day.newExerciseIsOpen" ng-init="day.newExerciseIsOpen = day.newExerciseIsOpen || false">
+          <div class="form">
+            <div class="form-group">
+              <label>Add New Exercise:</label>
+              <input type="text" ng-model="newItems.exercise" 
+                    typeahead="exercise as exercise.name for exercise in exerciseDb | filter:{name:$viewValue} | limitTo:20 | orderBy:stringLen:reverse" class="form-control">
+            </div>
+             <button type="submit" class="btn btn-default" ng-click="addNewExercise(day, newItems.exercise)">Add</button>
+          </div>
+        </accordion-group>
+
+        <accordion-group heading="Add Circuit/Super Set..." is-open="day.newCircuitIsOpen" ng-init="day.newCircuitIsOpen = day.newCircuitIsOpen || false">
+          <div class="form">
+            <div class="form-group">
+              <label>Add New Exercise:</label>
+              <input type="text" ng-model="newItems.exercise" 
+                    typeahead="exercise as exercise.name for exercise in exerciseDb | filter:{name:$viewValue} | limitTo:20 | orderBy:stringLen:reverse" class="form-control">
+            </div>
+             <button type="submit" class="btn btn-default" ng-click="addNewExercise(day, newItems.exercise, true)">Add</button>
+          </div>
+        </accordion-group>
+        
+      </accordion-group>
+
+      <accordion-group heading="Add New Day..." is-open="workout.newDayIsOpen" ng-init="workout.newDayIsOpen = workout.newDayIsOpen || false">
+        <div class="form">
+          <div class="form-group">
+            <label>New Day:</label>
+            <input ng-model="newItems.day" class="form-control">
+          </div>
+           <button type="submit" class="btn btn-default" ng-click="addNewDay(workout, newItems.day)">Add</button>
+        </div>
+      </accordion-group>
+    
+  </accordion-group>
+</accordion>
+<accordion>
+  <accordion-group heading="Add New Workout..." is-open="newItems.workoutIsOpen" ng-init="newItems.workoutIsOpen = newItems.workoutIsOpen || false">
+    <div class="form">
+      <div class="form-group">
+        <label>New Workout:</label>
+        <input ng-model="newItems.workout" class="form-control">
+      </div>
+       <button type="submit" class="btn btn-default" ng-click="addNewWorkout(newItems.workout)">Add</button>
+    </div>
+  </accordion-group>
+</accordion>

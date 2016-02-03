@@ -1,0 +1,32 @@
+ <ion-view view-title="Workouts">
+
+ 	<ion-nav-buttons side="secondary">
+		<button class="button button-positive button-clear icon icon-right ion-ios-cloud-upload-outline" ng-click="save()"></button>
+    </ion-nav-buttons>
+ 	
+ 	<ion-content>
+
+ 		<ion-list can-swipe="true" delegate-handle="workouts">
+ 			<ion-item ng-repeat="workout in data.workouts" ng-click="gotoWorkout({workout : workout, workouts : workouts})">
+ 				<h2>
+		    	{{workout.name}}
+			    </h2>
+			    <p ng-if="workout.days.length == 0">Add some days</p>
+			    <p ng-if="workout.days.length != 0">{{workout.days.length}} days</p>
+
+			    <ion-option-button class="button-positive" ng-click="editWorkoutName(workout)">
+			      Rename
+			    </ion-option-button>
+			    <ion-option-button class="button-assertive" ng-click="deleteWorkout(workout)">
+			      Delete
+			    </ion-option-button>
+ 			</ion-item>
+ 		</ion-list>
+
+		<div>
+			<button class="button button-positive button-clear icon icon-right ion-plus-round" ng-click="showAddNew($event)"></button>
+			<span ng-if="data.workouts.length == 0">(Add a workout here)</span>
+		</div>
+ 		
+ 	</ion-content>
+</ion-view>

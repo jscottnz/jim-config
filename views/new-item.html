@@ -1,0 +1,19 @@
+ <ion-popover-view>
+ 	
+	<ion-header-bar>
+      <h3 class="title">Add {{openPopoverOptions.newItemName}}</h3>
+    </ion-header-bar>
+	<ion-content>
+		<div class="list">
+		  <label class="item item-input item-stacked-label">
+		    <span class="input-label">{{openPopoverOptions.newItemName}} Name</span>
+		    <input type="text" placeholder="{{openPopoverOptions.newItemPlaceholder}}" ng-model="newItemInput">
+		  </label>
+		  <button class="button button-block button-clear button-positive" ng-click="openPopoverOptions.addNewItem(newItemInput)">
+			  Add
+		  </button>
+		</div>
+ 		
+		
+ 	</ion-content>
+</ion-popover-view>

@@ -1,0 +1,19 @@
+ <ion-popover-view view-title="Workouts">
+ 	
+	<ion-header-bar>
+      <h3 class="title">New Workout</h3>
+    </ion-header-bar>
+	<ion-content>
+		<div class="list">
+		  <label class="item item-input item-stacked-label">
+		    <span class="input-label">Workout Name</span>
+		    <input type="text" placeholder="3 day Ultimate" ng-model="newItems.workout">
+		  </label>
+		  <button class="button button-block button-clear button-positive" ng-click="addNewWorkout(newItems.workout)">
+			  Add
+		  </button>
+		</div>
+ 		
+		
+ 	</ion-content>
+</ion-popover-view>
