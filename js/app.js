@@ -1,4 +1,4 @@
-angular.module('setttingshtml', ['ionic', 'ngCordova'])
+angular.module('setttingshtml', ['ionic'])
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider.state('index', {
@@ -35,7 +35,7 @@ angular.module('setttingshtml', ['ionic', 'ngCordova'])
   
 })
 
-.run(function($ionicPlatform, $rootScope, dataService, pebbleService) {
+.run(function($ionicPlatform, $rootScope, dataService) {
   $ionicPlatform.ready(function() {
 
     if (window.cordova) {
@@ -52,13 +52,11 @@ angular.module('setttingshtml', ['ionic', 'ngCordova'])
       StatusBar.styleDefault();
     }
 
-    if(window.cordova && window.plugins.Pebble) {
-      pebbleService.init(window.plugins.Pebble);
-    } else {
-      pebbleService.init();
-    }
-    pebbleService.ready();
   });
 
   $rootScope.save = dataService.save;
+
+  $rootScope.reorderItem = function(list, $fromIndex, $toIndex) {
+    list.splice($toIndex, 0, list.splice($fromIndex, 1)[0]);
+  }
 })

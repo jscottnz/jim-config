@@ -37,8 +37,11 @@
         </button>
       </span>
 
-      <ion-item class="item" ng-if="set.isCircuit && set.circuitExercise.name">
+      <ion-item class="item item-icon-right" ng-if="set.isCircuit && set.circuitExercise.name">
         <h2>{{set.circuitExercise.name}}</h2>
+
+        <i class="button button-icon icon ion-chevron-left" style="opacity : 0.1;"></i>
+        
         <ion-option-button class="button-positive" ng-click="selectCircuitExercise(set)">
           Select Exercise
         </ion-option-button> 

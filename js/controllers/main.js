@@ -474,24 +474,20 @@ app.service("dataService", function() {
 		console.log(data);
 		localStorage.setItem('data', data);
 
-		if (window.cordova && window.cordova.plugins.Pebble) {
+		
+		var returnTo = getQueryParam('return_to', 'pebblejs://close#');
+		if(returnTo) {
 
-
-
-		} else {
-			var returnTo = getQueryParam('return_to', 'pebblejs://close#');
-			if(returnTo) {
-
-				var toSend = {
-			    	workouts : [ {
-				        name : 'Default Workout',
-				        days : [ self.chosenDay ]
-				    }]
-				};
-				
-				document.location = returnTo + encodeURIComponent(JSON.stringify(angular.copy(toSend)));
-			}
+			var toSend = {
+		    	workouts : [ {
+			        name : 'Default Workout',
+			        days : [ self.chosenDay ]
+			    }]
+			};
+			
+			document.location = returnTo + encodeURIComponent(JSON.stringify(angular.copy(toSend)));
 		}
+		
 		
 	};
 

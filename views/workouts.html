@@ -6,13 +6,15 @@
  	
  	<ion-content>
 
- 		<ion-list can-swipe="true" delegate-handle="workouts">
- 			<ion-item ng-repeat="workout in data.workouts" ng-click="gotoWorkout({workout : workout, workouts : workouts})">
+ 		<ion-list can-swipe="true" delegate-handle="workouts" show-reorder="showReorder">
+ 			<ion-item ng-repeat="workout in data.workouts" ng-click="gotoWorkout({workout : workout, workouts : workouts})" class="item-icon-right">
  				<h2>
 		    	{{workout.name}}
 			    </h2>
 			    <p ng-if="workout.days.length == 0">Add some days</p>
 			    <p ng-if="workout.days.length != 0">{{workout.days.length}} days</p>
+
+			   	<i class="button button-icon icon ion-chevron-left" style="opacity : 0.1;"></i>
 
 			    <ion-option-button class="button-positive" ng-click="editWorkoutName(workout)">
 			      Rename
@@ -20,12 +22,13 @@
 			    <ion-option-button class="button-assertive" ng-click="deleteWorkout(workout)">
 			      Delete
 			    </ion-option-button>
+			    <ion-reorder-button class="ion-navicon" on-reorder="reorderItem(data.workouts, $fromIndex, $toIndex)"></ion-reorder-button>
  			</ion-item>
  		</ion-list>
 
 		<div>
-			<button class="button button-positive button-clear icon icon-right ion-plus-round" ng-click="showAddNew($event)"></button>
-			<span ng-if="data.workouts.length == 0">(Add a workout here)</span>
+			<button class="button button-positive button-clear icon icon-right ion-plus" ng-click="showAddNew($event)"></button>
+			<button class="button button-positive button-clear icon icon-right ion-shuffle" ng-click="showReorder = !showReorder"></button>
 		</div>
  		
  	</ion-content>
