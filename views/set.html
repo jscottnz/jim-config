@@ -41,7 +41,7 @@
         <h2>{{set.circuitExercise.name}}</h2>
 
         <i class="button button-icon icon ion-chevron-left" style="opacity : 0.1;"></i>
-        
+
         <ion-option-button class="button-positive" ng-click="selectCircuitExercise(set)">
           Select Exercise
         </ion-option-button> 
@@ -59,16 +59,10 @@
         <div class="item item-text-wrap">
           Sets can be measured in Reps or in Time
         </div>
-
-        <label class="item item-input item-select">
-          <div class="input-label">
-            Mesurement
-          </div>
-          <select ng-model="set.repsOrTime">
-            <option value="reps">Reps</option>
-            <option value="time">Time</option>
-          </select>
-        </label>
+        <div class="button-bar">
+          <a class="button" ng-click="set.repsOrTime = 'reps'" ng-class="(set.repsOrTime == 'reps' ? 'button-positive' : 'button-stable' )">Reps</a>
+          <a class="button" ng-click="set.repsOrTime = 'time'; set.timeSecondsOrMinutes = (set.timeSecondsOrMinutes ? set.timeSecondsOrMinutes : 'seconds')" ng-class="(set.repsOrTime == 'time' ? 'button-positive' : 'button-stable' )">Time</a>
+        </div>
    		</div>
 
       <div ng-if="set.repsOrTime == 'reps'" class="list card">
@@ -80,53 +74,53 @@
         </label>   
       </div>
 
-      <div ng-if="set.repsOrTime == 'time'">
-        <div class="list card">
-          <div class="item item-divider">
-            Time
-          </div>
-
-          <label class="item item-input item-select">
-            <div class="input-label">
-              Seconds or Minutes
-            </div>
-            <select ng-model="set.timeSecondsOrMinutes">
-              <option value="seconds">Seconds</option>
-              <option value="minutes">Minutes</option>
-            </select>
-          </label>
-
-          <label class="item item-input item-select" ng-if="set.timeSecondsOrMinutes == 'seconds'">
-            <div class="input-label">
-                Time (m:ss)
-            </div>
-            <select ng-model="set.time" ng-options="renderTime(val) for val in secondsRange"></select>
-          </label>
-            
-          <label class="item item-input item-select" ng-if="set.timeSecondsOrMinutes == 'minutes'">
-            <div class="input-label">
-                Time (h:mm)
-            </div>
-            <select ng-model="set.time" ng-options="renderHoursMinutes(val) for val in minutesRange"></select>
-          </label>
+      
+      <div class="list card" ng-if="set.repsOrTime == 'time'">
+        <div class="item item-divider">
+          Time
         </div>
+
+        <div class="item item-text-wrap">
+          Time can be measured in Seconds or Minutes
+        </div>
+
+        <div class="button-bar">
+          <a class="button" ng-click="set.timeSecondsOrMinutes = 'seconds'" ng-class="(set.timeSecondsOrMinutes == 'seconds' ? 'button-positive' : 'button-stable' )">Seconds</a>
+          <a class="button" ng-click="set.timeSecondsOrMinutes = 'minutes'" ng-class="(set.timeSecondsOrMinutes == 'minutes' ? 'button-positive' : 'button-stable' )">Minutes</a>
+        </div>
+
+        <label class="item item-input item-select" ng-if="set.timeSecondsOrMinutes == 'seconds'">
+          <div class="input-label">
+              Time (m:ss)
+          </div>
+          <select ng-model="set.time" ng-options="renderTime(val) for val in secondsRange"></select>
+        </label>
+          
+        <label class="item item-input item-select" ng-if="set.timeSecondsOrMinutes == 'minutes'">
+          <div class="input-label">
+              Time (h:mm)
+          </div>
+          <select ng-model="set.time" ng-options="renderHoursMinutes(val) for val in minutesRange"></select>
+        </label>
       </div>
 
       <div class="list card">
           <div class="item item-divider">
-            Weight
+            Weight Unit
           </div>
 
-          <label class="item item-input item-select">
-            <div class="input-label">
-              Unit
-            </div>
-            <select ng-model="set.units" ng-options="val for val in ['lbs', 'kgs', 'plate', 'bodyweight']"></select>
-          </label>
+          <div class="button-bar">
+            <a class="button" ng-click="set.units = 'lbs'" ng-class="(set.units == 'lbs' ? 'button-positive' : 'button-stable' )">lb</a>
+            <a class="button" ng-click="set.units = 'kgs'" ng-class="(set.units == 'kgs' ? 'button-positive' : 'button-stable' )">kg</a>
+          </div>
+          <div class="button-bar">
+            <a class="button" ng-click="set.units = 'plate'" ng-class="(set.units == 'plate' ? 'button-positive' : 'button-stable' )">plate</a>
+            <a class="button" ng-click="set.units = 'bodyweight'" ng-class="(set.units == 'bodyweight' ? 'button-positive' : 'button-stable' )">body weight</a>
+          </div>
           
           <label class="item item-input item-select" ng-hide="set.units == 'bodyweight'">
             <div class="input-label">
-                Weight
+                Weight Amount
             </div>
             <select ng-model="set.wieght" ng-options="val for val in weightRange"></select>
           </label>
