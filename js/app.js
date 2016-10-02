@@ -30,8 +30,13 @@ angular.module('setttingshtml', ['ionic'])
     controller: 'SetController',
     params : { set : null, sets : null }
   });
+  $stateProvider.state('login', {
+    url: '/login',
+    templateUrl: 'views/login.html',
+    controller: 'LoginController'
+  });
 
-  $urlRouterProvider.otherwise("/");
+  $urlRouterProvider.otherwise("/login");
   
 })
 

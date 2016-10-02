@@ -15,7 +15,7 @@ function goto($rootScope, $state, route, options) {
 	}
 
 	$rootScope._routeOptions[route] = options;
-	$state.go(route);	
+	$state.go(route);
 }
 
 function getRouteData($rootScope, route, $state) {
@@ -28,11 +28,27 @@ function getRouteData($rootScope, route, $state) {
 
 var app = angular.module('setttingshtml');
 
-app.controller("WorkoutsController", function($rootScope, $scope, $state, $ionicPopup, $ionicListDelegate, dataService, newItemFactory) {
+app.controller("LoginController", function($scope, authService, $state) {
+  $scope.loginGoogle = function() {
+    authService.loginWithGoogle(function(){});
+  };
+
+  $scope.loginFacebook = function() {
+    authService.loginWithFaceBook(function(){});
+  };
+
+  authService.addAuthChangeListener(function(firebaseUser) {
+    if (firebaseUser) {
+      $state.go("index");
+    }
+  });
+});
+
+app.controller("WorkoutsController", function($rootScope, $scope, $state, $ionicPopup, $ionicListDelegate, dataService, authService) {
 
 	function addNewWorkout(workout) {
 		var workout = { name : workout, days: []}
-		dataService.data.workouts.push(workout);
+		dataService.data.d.workouts.push(workout);
 		return workout;
 	};
 
@@ -68,18 +84,25 @@ app.controller("WorkoutsController", function($rootScope, $scope, $state, $ionic
 			template : 'Are you sure you want to delete this workout?'
 		}).then(function(res) {
 			if(res) {
-				removeFromArray($scope.data.workouts, workout);
+				removeFromArray($scope.data.d.workouts, workout);
 			}
 			$ionicListDelegate.$getByHandle('workouts').closeOptionButtons();
-		});		
+		});
 	}
 
 	$scope.gotoWorkout = function(options) {
 		goto($rootScope, $state, 'workout', options);
 	}
 
-	$scope.data = dataService.data;
-	
+  $scope.signout = function() {
+    authService.logout(function() {
+      $state.go("login", {});
+    });
+  }
+
+  $scope.data = dataService.data;
+
+
 });
 
 app.controller("WorkoutController", function ($rootScope, $scope, $state, $ionicPopup, $ionicListDelegate, dataService) {
@@ -122,7 +145,7 @@ app.controller("WorkoutController", function ($rootScope, $scope, $state, $ionic
 				removeFromArray(workout.days, day);
 			}
 			$ionicListDelegate.$getByHandle('days').closeOptionButtons();
-		});		
+		});
 	};
 
 	$scope.gotoDay = function(options) {
@@ -175,7 +198,7 @@ app.controller("DayController", function ($rootScope, $scope, $state, $ionicPopu
 				removeFromArray(day.exercises, exercise);
 			}
 			$ionicListDelegate.$getByHandle('exercises').closeOptionButtons();
-		});		
+		});
 	};
 
 	$scope.selectExercise = function(day) {
@@ -186,7 +209,7 @@ app.controller("DayController", function ($rootScope, $scope, $state, $ionicPopu
 			scope : $scope
 		}).then(function(res) {
 			addNewExercise(day, $scope.selectedExercise, $scope.selectedExercise.isCircuit);
-		});		
+		});
 	}
 
 	$scope.gotoExercise = function(options) {
@@ -224,12 +247,12 @@ app.controller("ExerciseController", function ($rootScope, $scope, $state, $ioni
 	};
 	$scope.showAddNew = function($event, exercise) {
 		if (exercise.sets.length == 0) {
-			addNewSet(exercise, 1, 0, 'lbs', 30, "");	
+			addNewSet(exercise, 1, 0, 'lbs', 30, "");
 		} else {
 			// clone last
 			exercise.sets.push(angular.copy(exercise.sets[exercise.sets.length-1]))
 		}
-		
+
 	};
 
 	$scope.deleteSet = function(exercise, set) {
@@ -241,7 +264,7 @@ app.controller("ExerciseController", function ($rootScope, $scope, $state, $ioni
 				removeFromArray(exercise.sets, set);
 			}
 			$ionicListDelegate.$getByHandle('sets').closeOptionButtons();
-		});		
+		});
 	};
 
 	$scope.cloneSet = function(exercise, set) {
@@ -269,7 +292,7 @@ app.controller("SetController", function ($rootScope, $scope, $state, $ionicPopu
 
 	$scope.exerciseDb = dataService.exerciseDb;
 	$scope.stringLen = dataService.stringLen;
-	
+
 	$scope.repsRange = [];
 	for(var i=1;i<100;i++) {
 	  $scope.repsRange.push(i);
@@ -325,11 +348,11 @@ app.controller("SetController", function ($rootScope, $scope, $state, $ionicPopu
 		}).then(function(res) {
 			set.circuitExercise = $scope.selectedExercise;
 			$ionicListDelegate.$getByHandle('setExercise').closeOptionButtons();
-		});		
+		});
 	}
 });
 
-app.service("dataService", function() {
+app.service("dataService", function(authService, firebaseService, user, $timeout) {
 	var self = this;
 
 	self.stringLen = function(item) {
@@ -337,7 +360,7 @@ app.service("dataService", function() {
 	};
 
 	self.load = function() {
-		var data = JSON.parse(localStorage.getItem('data')) || {
+		var data =  {
 			chosenDay : 'Shoulders Day',
 		    workouts : [
 		      {
@@ -437,7 +460,7 @@ app.service("dataService", function() {
 		      }
 		    ]
 		};
-		self.data = data;
+		self.data = { d : data };
 
 		for (var i = data.workouts.length - 1; i >= 0; i--) {
 			for (var j = data.workouts[i].days.length - 1; j >= 0; j--) {
@@ -445,13 +468,13 @@ app.service("dataService", function() {
 					self.chooseDay(data.workouts[i].days[j]);
 				}
 			};
-			
+
 		};
 	}
 
 	self.chooseDay = function(day) {
 		self.chosenDay = day;
-		self.data.chosenDay = day.name;
+		self.data.d.chosenDay = day.name;
 	}
 
 	function getQueryParam(variable, defaultValue) {
@@ -470,11 +493,10 @@ app.service("dataService", function() {
 	}
 
 	self.save = function() {
-		var data = JSON.stringify(angular.copy(self.data));
-		console.log(data);
-		localStorage.setItem('data', data);
 
-		
+    firebaseService.fb.database().ref('users/' + user.data.uid).set(angular.copy(self.data.d));
+
+
 		var returnTo = getQueryParam('return_to', 'pebblejs://close#');
 		if(returnTo) {
 
@@ -484,15 +506,15 @@ app.service("dataService", function() {
 			        days : [ self.chosenDay ]
 			    }]
 			};
-			
+
 			document.location = returnTo + encodeURIComponent(JSON.stringify(angular.copy(toSend)));
 		}
-		
-		
+
+
 	};
 
 
-	self.load();	
+	self.load();
 	self.exerciseDb = [{name : "3/4 Sit-Up", key : "34-sit-up"},
 			{name : "90/90 Hamstring", key : "9090-hamstring"},
 			{name : "Ab Crunch Machine", key : "ab-crunch-machine"},
@@ -1840,6 +1862,42 @@ app.service("dataService", function() {
 			{name : "Zercher Squats", key : "zercher-squats"},
 			{name : "Zottman Curl", key : "zottman-curl"},
 			{name : "Zottman Preacher Curl", key : "zottman-preacher-curl"}];
+
+  authService.addAuthChangeListener(function(firebaseUser) {
+    if(firebaseUser) {
+
+      firebaseService.addValueChangeListener('users/' + user.data.uid, function(value) {
+        if (value) {
+          console.log("fb workouts updated");
+          $timeout(function() {
+
+            var arrayMaker = function(obj, arrayName) {
+              if (!obj[arrayName]) {
+                obj[arrayName] = [];
+              }
+            }
+
+            // dumb data cleanup
+            value.workouts.forEach(function(workout) {
+              arrayMaker(workout, "days");
+
+              workout.days.forEach(function(day) {
+                arrayMaker(day, "exercises");
+
+                day.exercises.forEach(function(exercise) {
+                  arrayMaker(exercise, "sets")
+                })
+              })
+            });
+
+            self.data.d = value;
+            console.log(value);
+          },0);
+        }
+      });
+    }
+  })
+
 });
 
 app.factory("newItemFactory", function($ionicPopover) {
@@ -1882,3 +1940,108 @@ app.factory("newExerciseFactory", function($ionicPopover, dataService) {
 		}
 	};
 });
+app
+  .value("user", {})
+  .factory("authService", function ($timeout, user, firebaseService) {
+
+    var fb = firebaseService.fb;
+
+    var authChangeListeners = [];
+    var lastAuthChange;
+
+    authChangeListeners.push(function(firebaseUser) {
+      user.data = firebaseUser;
+    });
+
+    fb.auth().onAuthStateChanged(function(fireBaseUser) {
+      lastAuthChange = fireBaseUser;
+
+      console.log(user);
+      $timeout(function(){
+        authChangeListeners.forEach(function(callback) {
+          callback(fireBaseUser);
+        });
+      }, 0);
+    });
+
+    function signInWithCredential(credential, callback) {
+      fb.auth().signInWithCredential(credential)
+        .then(function(result) {
+          callback();
+        })
+        .catch(callback);
+    }
+
+    function signInWithRedirect(provider, callback) {
+      fb.auth().signInWithRedirect(provider)
+        .then(function(){callback()})
+        .catch(callback);
+    }
+
+    return {
+      loginWithGoogle : function(callback) {
+        signInWithRedirect(new firebase.auth.GoogleAuthProvider(), callback);
+      },
+
+      loginWithFaceBook : function(callback) {
+        signInWithRedirect(new fb.auth.FacebookAuthProvider(), callback);
+      },
+
+      logout : function(callback) {
+
+        if(!callback) {
+          callback = function(){};
+        }
+
+        fb.auth().signOut()
+          .then(function() {callback()})
+          .catch(callback);
+      },
+
+      addAuthChangeListener : function(callback) {
+        // assert is function
+        if (!!(callback && callback.constructor && callback.call && callback.apply)) {
+          authChangeListeners.push(callback);
+          callback(lastAuthChange);
+        } else {
+          throw new Error("callback is not a function");
+        }
+      }
+    }
+  });
+
+app.factory("firebaseService", function ($timeout, user) {
+
+    console.log("init firebase service");
+
+    var config = {
+      apiKey: "AIzaSyCModqy7K3ylh6Tuhddp5pCL7d0XJx7qU4",
+      authDomain: "jim-7b0cc.firebaseapp.com",
+      databaseURL: "https://jim-7b0cc.firebaseio.com",
+      storageBucket: "",
+      messagingSenderId: "238235125204"
+    };
+    firebase.initializeApp(config);
+
+    // SERVICE
+    return {
+
+      fb : firebase,
+
+      addValueChangeListener : function(dbRefName, callback) {
+
+        firebase.database().ref(dbRefName).on('value', function(snapshot) {
+          $timeout(function() {
+            callback(snapshot.val());
+          }, 0);
+        });
+
+        console.log("added " + dbRefName + " listener");
+      },
+
+      delete : function(ref) {
+        firebase.database().ref(ref).remove();
+      }
+    }
+  });
+

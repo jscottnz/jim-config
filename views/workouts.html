@@ -1,9 +1,13 @@
- <ion-view view-title="Workouts">
+ <ion-view view-title="Workouts" hide-back-button="true">
+   <ion-nav-buttons>
+     <button class="button button-positive button-clear icon icon-right ion-ios-close-outline" ng-click="signout()"></button>
+   </ion-nav-buttons>
 
- 	<ion-nav-buttons side="secondary">
+
+   <ion-nav-buttons side="secondary">
 		<button class="button button-positive button-clear icon icon-right ion-ios-cloud-upload-outline" ng-click="save()"></button>
-    </ion-nav-buttons>
- 	
+  </ion-nav-buttons>
+
  	<ion-content>
 
  		<div>
@@ -12,7 +16,7 @@
 		</div>
 
  		<ion-list can-swipe="true" delegate-handle="workouts" show-reorder="showReorder">
- 			<ion-item ng-repeat="workout in data.workouts" ng-click="gotoWorkout({workout : workout, workouts : workouts})" class="item-icon-right">
+ 			<ion-item ng-repeat="workout in data.d.workouts" ng-click="gotoWorkout({workout : workout, workouts : workouts})" class="item-icon-right">
  				<h2>
 		    	{{workout.name}}
 			    </h2>
@@ -27,10 +31,10 @@
 			    <ion-option-button class="button-assertive" ng-click="deleteWorkout(workout)">
 			      Delete
 			    </ion-option-button>
-			    <ion-reorder-button class="ion-navicon" on-reorder="reorderItem(data.workouts, $fromIndex, $toIndex)"></ion-reorder-button>
+			    <ion-reorder-button class="ion-navicon" on-reorder="reorderItem(data.d.workouts, $fromIndex, $toIndex)"></ion-reorder-button>
  			</ion-item>
  		</ion-list>
 
-		
+
  	</ion-content>
 </ion-view>
