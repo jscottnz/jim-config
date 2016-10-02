@@ -172,7 +172,9 @@ app.controller("DayController", function ($rootScope, $scope, $state, $ionicPopu
 		var newExercise = { name : exercise.name, sets : [], key : exercise.key }
 		if(isCircuit) {
 			 newExercise.isCircuit = true;
-		}
+		} else {
+      newExercise.isCircuit = false;
+    }
 		day.exercises.push(newExercise);
 
 
