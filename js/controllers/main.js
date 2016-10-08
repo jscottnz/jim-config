@@ -169,10 +169,12 @@ app.controller("DayController", function ($rootScope, $scope, $state, $ionicPopu
 			}
 		}
 
-		var newExercise = { name : exercise.name, sets : [], key : exercise.key }
+		var newExercise = { name : exercise.name, sets : [] }
+    if (exercise.key) {
+      newExercise.key = exercise.key;
+    }
 		if(isCircuit) {
 			 newExercise.isCircuit = true;
-       newExercise.key = null;
 		} else {
       newExercise.isCircuit = false;
     }
@@ -190,6 +192,7 @@ app.controller("DayController", function ($rootScope, $scope, $state, $ionicPopu
 		exercise.isOpen = false;
 		newExercise.isOpen = true;
 		day.exercises.push(newExercise);
+    $ionicListDelegate.$getByHandle('exercises').closeOptionButtons();
 	}
 
 	$scope.deleteExercise = function(day, exercise) {
@@ -211,9 +214,23 @@ app.controller("DayController", function ($rootScope, $scope, $state, $ionicPopu
 			templateUrl : 'views/new-exercise-popup.html',
 			scope : $scope
 		}).then(function(res) {
-			addNewExercise(day, $scope.selectedExercise, $scope.selectedExercise.isCircuit);
+      if($scope.selectedExercise && $scope.selectedExercise.name) {
+        addNewExercise(day, $scope.selectedExercise, $scope.selectedExercise.isCircuit);
+      }
 		});
 	}
+
+  $scope.editExerciseName = function(exercise) {
+    $ionicPopup.prompt({
+      title : 'Rename exercide',
+      defaultText : exercise.name
+    }).then(function(exerciseName) {
+      if (exercise) {
+        exercise.name = exerciseName;
+      }
+      $ionicListDelegate.$getByHandle('exercises').closeOptionButtons();
+    });
+  };
 
 	$scope.gotoExercise = function(options) {
 		goto($rootScope, $state, 'exercise', options);

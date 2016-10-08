@@ -3,9 +3,9 @@
 	<ion-nav-buttons side="secondary">
 		<button class="button button-positive button-clear icon icon-right ion-ios-cloud-upload-outline" ng-click="save()"></button>
     </ion-nav-buttons>
- 	
+
  	<ion-content>
- 	
+
  		<ul class="list">
 		    <li class="item">
 		      {{exercise.name}}
@@ -19,31 +19,31 @@
 		<ion-list can-swipe="true" delegate-handle="sets" show-reorder="showReorder">
  			<ion-item ng-repeat="set in exercise.sets" ng-click="gotoSet({set : set, sets : exercise.sets, exercise : exercise})" class="item-icon-right">
  				<h2 ng-if="set.repsOrTime == 'reps'">
-		  			<span ng-if="set.isCircuit && !set.circuitExercise.name">Add an exercise in Set</span>
-		  			<span ng-if="(!set.isCircuit) || (set.isCircuit && set.circuitExercise.name)">{{set.circuitExercise.name || set.circuitExercise}}</span>
-		        	<span>{{set.reps}} reps</span>
-		            <span ng-if="set.wieght > 0"> X {{set.wieght}} {{set.units}}</span>
-	          	</h2>
-		        <h2 ng-if="set.repsOrTime == 'time'">
-		        	<span ng-if="set.isCircuit && !set.circuitExercise.name">Add an exercise in Set</span>
-		  			<span ng-if="(!set.isCircuit) || (set.isCircuit && set.circuitExercise.name)">{{set.circuitExercise.name || set.circuitExercise}}</span>
-		            <span>{{set.time}} {{set.timeSecondsOrMinutes}}</span>
-		            <span ng-if="set.wieght > 0"> @ {{set.wieght}} {{set.units}}</span>
-		        </h2>
-		        <p ng-if="set.rest">{{set.rest}} second rest</p>
+          <span ng-if="set.isCircuit && !set.circuitExercise.name">Add an exercise in Set</span>
+          <span ng-if="(!set.isCircuit) || (set.isCircuit && set.circuitExercise.name)">{{set.circuitExercise.name || set.circuitExercise}}</span>
+          <span>{{set.reps}} reps</span>
+          <span ng-if="set.wieght > 0"> X {{set.wieght}} {{set.units}}</span>
+        </h2>
+        <h2 ng-if="set.repsOrTime == 'time'">
+          <span ng-if="set.isCircuit && !set.circuitExercise.name">Add an exercise in Set</span>
+          <span ng-if="(!set.isCircuit) || (set.isCircuit && set.circuitExercise.name)">{{set.circuitExercise.name || set.circuitExercise}}</span>
+          <span>{{set.time}} {{set.timeSecondsOrMinutes}}</span>
+          <span ng-if="set.wieght > 0"> @ {{set.wieght}} {{set.units}}</span>
+        </h2>
+        <p ng-if="set.rest">{{set.rest}} second rest</p>
 
-		        <i class="button button-icon icon ion-chevron-left" style="opacity : 0.1;"></i>
+        <i class="button button-icon icon ion-chevron-left" style="opacity : 0.1;"></i>
 
-		        <ion-option-button class="button-positive" ng-click="cloneSet(exercise, set)">
-			      Copy
-			    </ion-option-button>
-			    <ion-option-button class="button-assertive" ng-click="deleteSet(exercise, set)">
-			      Delete
-			    </ion-option-button>
-			    <ion-reorder-button class="ion-navicon" on-reorder="reorderItem(exercise.sets, $fromIndex, $toIndex)"></ion-reorder-button>
+        <ion-option-button class="button-positive" ng-click="cloneSet(exercise, set)">
+          Copy
+        </ion-option-button>
+        <ion-option-button class="button-assertive" ng-click="deleteSet(exercise, set)">
+          Delete
+        </ion-option-button>
+        <ion-reorder-button class="ion-navicon" on-reorder="reorderItem(exercise.sets, $fromIndex, $toIndex)"></ion-reorder-button>
  			</ion-item>
  		</ion-list>
-		
+
  	</ion-content>
 
 </ion-view>

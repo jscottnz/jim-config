@@ -2,7 +2,7 @@
 	<ion-nav-buttons side="secondary">
 		<button class="button button-positive button-clear icon icon-right ion-ios-cloud-upload-outline" ng-click="save()"></button>
     </ion-nav-buttons>
-	
+
  	<ion-content>
  		<ul class="list">
 		    <li class="item">
@@ -24,8 +24,11 @@
 
 			    <i class="button button-icon icon ion-chevron-left" style="opacity : 0.1;"></i>
 
-			    <ion-option-button class="button-positive" ng-click="selectExercise(day)">
-			      Select
+          <ion-option-button class="button-balanced" ng-click="cloneExercise(day, exercise)">
+            Copy
+          </ion-option-button>
+			    <ion-option-button class="button-positive" ng-click="editExerciseName(exercise)">
+			      Rename
 			    </ion-option-button>
 			    <ion-option-button class="button-assertive" ng-click="deleteExercise(day, exercise)">
 			      Delete
@@ -34,7 +37,7 @@
  			</ion-item>
  		</ion-list>
 
- 		
+
  	</ion-content>
 
 </ion-view>
