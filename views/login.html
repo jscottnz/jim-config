@@ -1,19 +1,31 @@
-<ion-view view-title="Login" hide-back-button="true">
+<ion-view view-title="Getting Started" hide-back-button="true">
 
  	<ion-content>
- 		<h2>Login To Sync Data</h2>
-    <div class="list" >
-      <div class="item item-thumbnail-left item-text-wrap ">
-        <p>
-          <button class="button icon ion-social-googleplus-outline" ng-click="loginGoogle()">
-          </button>
-
-          <button class="button icon ion-social-facebook-outline" ng-click="loginFacebook()">
-          </button>
-        </p>
-      </div>
-
-    </div>
+        <div class="list card" ng-hide="showLogin">
+            <div class="item item-divider">
+                Checking in with Jim
+            </div>
+        </div>
+        <div ng-show="showLogin">
+            <div class="list card">
+                <div class="item item-divider">
+                    Jim needs you to sign in
+                </div>
+                <div class="item item-text-wrap">
+                    <p>To work with Jim you will need to sign in.<p>
+                    <p>Doing so will allow Jim to save your workout plans and logs.</p>
+                    <p>Jim will not share your information with anyone.</p>
+                </div>
+                <a class="item item-icon-left" href="#" ng-click="loginGoogle()">
+                    <i class="icon ion-social-googleplus-outline assertive"></i>
+                    Sign in with Google
+                </a>
+                <a class="item item-icon-left " href="#" ng-click="loginFacebook()">
+                    <i class="icon ion-social-facebook positive"></i>
+                    Sign in with Facebook
+                </a>
+            </div>
+        </div>
 
  	</ion-content>
 

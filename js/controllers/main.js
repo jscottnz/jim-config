@@ -43,6 +43,12 @@ app.controller("LoginController", function ($scope, authService, $state) {
     authService.addAuthChangeListener(function (firebaseUser) {
         if (firebaseUser) {
             $state.go("index");
+        } else if (firebaseUser === null) {
+            // null response if from firebase when there is no user
+            $scope.showLogin = true;
+        } else if (firebaseUser === undefined) {
+            // still checking
+            $scope.showLogin = false;
         }
     });
 });
