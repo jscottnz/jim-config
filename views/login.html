@@ -1,26 +1,29 @@
-<ion-view view-title="Getting Started" hide-back-button="true">
+<ion-view view-title="Getting Started" hide-back-button="true" class="stable">
+
+    <ion-nav-bar class="bar-balanced">
+    </ion-nav-bar>
 
  	<ion-content>
         <div class="list card" ng-hide="showLogin">
-            <div class="item item-divider">
+            <div class="item item-divider item-calm">
                 Checking in with Jim
             </div>
         </div>
         <div ng-show="showLogin">
             <div class="list card">
-                <div class="item item-divider">
+                <div class="item item-divider item-calm">
                     Jim needs you to sign in
                 </div>
-                <div class="item item-text-wrap">
+                <div class="item item-text-wrap item-light">
                     <p>To work with Jim you will need to sign in.<p>
                     <p>Doing so will allow Jim to save your workout plans and logs.</p>
                     <p>Jim will not share your information with anyone.</p>
                 </div>
-                <a class="item item-icon-left" href="#" ng-click="loginGoogle()">
+                <a class="item item-icon-left item-light" href="#" ng-click="loginGoogle()">
                     <i class="icon ion-social-googleplus-outline assertive"></i>
                     Sign in with Google
                 </a>
-                <a class="item item-icon-left " href="#" ng-click="loginFacebook()">
+                <a class="item item-icon-left item-light" href="#" ng-click="loginFacebook()">
                     <i class="icon ion-social-facebook positive"></i>
                     Sign in with Facebook
                 </a>

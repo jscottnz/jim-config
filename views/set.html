@@ -1,15 +1,19 @@
 <ion-view view-title="Set">
 
+    <ion-nav-bar class="bar-balanced">
+        <ion-nav-back-button></ion-nav-back-button>
+    </ion-nav-bar>
+
 	<ion-nav-buttons side="secondary">
-		<button class="button button-positive button-clear icon icon-right ion-ios-cloud-upload-outline" ng-click="save()"></button>
+		<button class="button button-clear icon icon-right ion-ios-cloud-upload-outline" ng-click="save()"></button>
   </ion-nav-buttons>
- 	
+
  	<ion-content>
 
     <ion-list can-swipe="set.isCircuit" delegate-handle="setExercise">
-      
+
       <span ng-if="!set.isCircuit">
-        <ion-item class="item">
+        <ion-item class="item item-calm">
           <h2>{{exercise.name}}</h2>
           <p ng-if="set.repsOrTime == 'reps'">
             <span>{{set.reps}} reps</span>
@@ -27,12 +31,12 @@
           Circuit Exercise
         </div>
 
-        
+
         <div class="item item-text-wrap">
           This set is part of a circuit or super set. Please select the exercise for this set.
         </div>
 
-        <button class="item button button-block button-positive" ng-click="selectCircuitExercise(set)">
+        <button class="item button button-block button-balanced" ng-click="selectCircuitExercise(set)">
           Select Exercise
         </button>
       </span>
@@ -44,7 +48,7 @@
 
         <ion-option-button class="button-positive" ng-click="selectCircuitExercise(set)">
           Select Exercise
-        </ion-option-button> 
+        </ion-option-button>
       </ion-item>
 
     </ion-list>
@@ -52,7 +56,7 @@
     <span ng-if="!set.isCircuit || set.isCircuit && set.circuitExercise.name">
 
       <div class="list card">
-        <div class="item item-divider">
+        <div class="item item-divider item-calm">
           Measured
         </div>
 
@@ -60,23 +64,23 @@
           Sets can be measured in Reps or in Time
         </div>
         <div class="button-bar">
-          <a class="button" ng-click="set.repsOrTime = 'reps'" ng-class="(set.repsOrTime == 'reps' ? 'button-positive' : 'button-stable' )">Reps</a>
-          <a class="button" ng-click="set.repsOrTime = 'time'; set.timeSecondsOrMinutes = (set.timeSecondsOrMinutes ? set.timeSecondsOrMinutes : 'seconds')" ng-class="(set.repsOrTime == 'time' ? 'button-positive' : 'button-stable' )">Time</a>
+          <a class="button" ng-click="set.repsOrTime = 'reps'" ng-class="(set.repsOrTime == 'reps' ? 'button-balanced' : 'button-stable' )">Reps</a>
+          <a class="button" ng-click="set.repsOrTime = 'time'; set.timeSecondsOrMinutes = (set.timeSecondsOrMinutes ? set.timeSecondsOrMinutes : 'seconds')" ng-class="(set.repsOrTime == 'time' ? 'button-balanced' : 'button-stable' )">Time</a>
         </div>
    		</div>
 
       <div ng-if="set.repsOrTime == 'reps'" class="list card">
-        <label class="item item-input item-select">
+        <label class="item item-input item-select item-calm">
           <div class="input-label">
             Reps
           </div>
           <select ng-model="set.reps" ng-options="val for val in repsRange"></select>
-        </label>   
+        </label>
       </div>
 
-      
+
       <div class="list card" ng-if="set.repsOrTime == 'time'">
-        <div class="item item-divider">
+        <div class="item item-divider item-calm">
           Time
         </div>
 
@@ -85,8 +89,8 @@
         </div>
 
         <div class="button-bar">
-          <a class="button" ng-click="set.timeSecondsOrMinutes = 'seconds'" ng-class="(set.timeSecondsOrMinutes == 'seconds' ? 'button-positive' : 'button-stable' )">Seconds</a>
-          <a class="button" ng-click="set.timeSecondsOrMinutes = 'minutes'" ng-class="(set.timeSecondsOrMinutes == 'minutes' ? 'button-positive' : 'button-stable' )">Minutes</a>
+          <a class="button" ng-click="set.timeSecondsOrMinutes = 'seconds'" ng-class="(set.timeSecondsOrMinutes == 'seconds' ? 'button-balanced' : 'button-stable' )">Seconds</a>
+          <a class="button" ng-click="set.timeSecondsOrMinutes = 'minutes'" ng-class="(set.timeSecondsOrMinutes == 'minutes' ? 'button-balanced' : 'button-stable' )">Minutes</a>
         </div>
 
         <label class="item item-input item-select" ng-if="set.timeSecondsOrMinutes == 'seconds'">
@@ -95,7 +99,7 @@
           </div>
           <select ng-model="set.time" ng-options="renderTime(val) for val in secondsRange"></select>
         </label>
-          
+
         <label class="item item-input item-select" ng-if="set.timeSecondsOrMinutes == 'minutes'">
           <div class="input-label">
               Time (h:mm)
@@ -105,19 +109,19 @@
       </div>
 
       <div class="list card">
-          <div class="item item-divider">
+          <div class="item item-divider item-calm">
             Weight Unit
           </div>
 
           <div class="button-bar">
-            <a class="button" ng-click="set.units = 'lbs'" ng-class="(set.units == 'lbs' ? 'button-positive' : 'button-stable' )">lb</a>
-            <a class="button" ng-click="set.units = 'kgs'" ng-class="(set.units == 'kgs' ? 'button-positive' : 'button-stable' )">kg</a>
+            <a class="button" ng-click="set.units = 'lbs'" ng-class="(set.units == 'lbs' ? 'button-balanced' : 'button-stable' )">lb</a>
+            <a class="button" ng-click="set.units = 'kgs'" ng-class="(set.units == 'kgs' ? 'button-balanced' : 'button-stable' )">kg</a>
           </div>
           <div class="button-bar">
-            <a class="button" ng-click="set.units = 'plate'" ng-class="(set.units == 'plate' ? 'button-positive' : 'button-stable' )">plate</a>
-            <a class="button" ng-click="set.units = 'bodyweight'" ng-class="(set.units == 'bodyweight' ? 'button-positive' : 'button-stable' )">body weight</a>
+            <a class="button" ng-click="set.units = 'plate'" ng-class="(set.units == 'plate' ? 'button-balanced' : 'button-stable' )">plate</a>
+            <a class="button" ng-click="set.units = 'bodyweight'" ng-class="(set.units == 'bodyweight' ? 'button-balanced' : 'button-stable' )">body weight</a>
           </div>
-          
+
           <label class="item item-input item-select" ng-hide="set.units == 'bodyweight'">
             <div class="input-label">
                 Weight Amount
@@ -127,7 +131,7 @@
       </div>
 
       <div class="list card">
-        <div class="item item-divider">
+        <div class="item item-divider item-calm">
           Rest
         </div>
 

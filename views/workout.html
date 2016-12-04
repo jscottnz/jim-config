@@ -1,18 +1,23 @@
 <ion-view view-title="Days">
+
+    <ion-nav-bar class="bar-balanced">
+        <ion-nav-back-button></ion-nav-back-button>
+    </ion-nav-bar>
+
 	<ion-nav-buttons side="secondary">
-		<button class="button button-positive button-clear icon icon-right ion-ios-cloud-upload-outline" ng-click="save()"></button>
+		<button class="button button-clear icon icon-right ion-ios-cloud-upload-outline" ng-click="save()"></button>
     </ion-nav-buttons>
  	<ion-content>
- 			
- 		<ul class="list">
-		    <li class="item">
+
+ 		<ul>
+		    <li class="item item-calm">
 		      {{workout.name}}
 		    </li>
-			<li class="item" style="padding:0">
-		    	<button class="button button-positive button-clear icon icon-right ion-plus-round" ng-click="showAddNew(workout)"></button>
-				<button class="button button-positive button-clear icon icon-right ion-shuffle" ng-click="showReorder = !showReorder"></button>
-			</li>
 		</ul>
+        <div class="calm">
+            <button class="button button-calm button-clear icon icon-right ion-plus-round" ng-click="showAddNew(workout)"></button>
+            <button class="button button-calm button-clear icon icon-right ion-shuffle" ng-click="showReorder = !showReorder"></button>
+        </div>
 
 		<ion-list can-swipe="true" delegate-handle="days" show-reorder="showReorder">
  			<ion-item class="item-icon-left item-icon-right" ng-repeat="day in workout.days" ng-click="gotoDay({day : day, days : workout.days})">
