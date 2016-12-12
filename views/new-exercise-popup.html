@@ -8,9 +8,18 @@
 			</div>
 		</label>
 	</div>
-	<label class="item item-input">
-    	<input type="text" placeholder="Exercise Name" ng-model="selectedExercise.name">
-  	</label>
+    <div class="item" ng-show="selectedExercise.isCircuit">
+        Circuit/Super Set name:
+        <label class="item item-input">
+            <input type="text" placeholder="Circuit Name" ng-model="selectedExercise.name">
+        </label>
+    </div>
+    <div class="item" ng-hide="selectedExercise.isCircuit">
+        <label class="item item-input">
+            <input type="text" placeholder="Exercise Name" ng-model="selectedExercise.name">
+        </label>
+    </div>
+
   	<div class="item" ng-if="selectedExercise.name" ng-repeat="item in exerciseDb | filter:{name:selectedExercise.name} | limitTo:20 | orderBy:stringLen:reverse" ng-click="selectedExercise.name = item.name; selectedExercise.key = item.key" ng-hide="selectedExercise.isCircuit" style="font-size : small">
 		{{item.name}}
 	</div>

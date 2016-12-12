@@ -1,4 +1,4 @@
-<ion-view view-title="Days">
+<ion-view view-title="Workout Days">
 
     <ion-nav-bar class="bar-balanced">
         <ion-nav-back-button></ion-nav-back-button>
@@ -17,6 +17,7 @@
         <div class="calm">
             <button class="button button-calm button-clear icon icon-right ion-plus-round" ng-click="showAddNew(workout)"></button>
             <button class="button button-calm button-clear icon icon-right ion-shuffle" ng-click="showReorder = !showReorder"></button>
+            <button class="button button-calm button-clear icon icon-right ion-help" ng-click="showHelp()"></button>
         </div>
 
 		<ion-list can-swipe="true" delegate-handle="days" show-reorder="showReorder">
