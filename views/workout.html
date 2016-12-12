@@ -20,6 +20,16 @@
             <button class="button button-calm button-clear icon icon-right ion-help" ng-click="showHelp()"></button>
         </div>
 
+        <div class="list card">
+            <div class="item item-divider item-calm">
+                How to upload
+            </div>
+            <div class="item item-text-wrap item-light">
+                <p>Choose a day below using the tick</p>
+                <p>Save to the cloud using the <span class="icon icon-right ion-ios-cloud-upload-outline" style="black"></span> button.</p>
+                <p>Saving from the Pebble app will upload to the watch</p>
+            </div>
+        </div>
 		<ion-list can-swipe="true" delegate-handle="days" show-reorder="showReorder">
  			<ion-item class="item-icon-left item-icon-right" ng-repeat="day in workout.days" ng-click="gotoDay({day : day, days : workout.days})">
  				<i class="icon ion-android-done" ng-class="{ balanced : day == dataService.chosenDay }" ng-click="chooseDay(day); $event.stopPropagation();"></i>
