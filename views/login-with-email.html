@@ -1,0 +1,38 @@
+<ion-view view-title="Sign in with Email">
+
+    <ion-nav-bar class="bar-balanced">
+        <ion-nav-back-button></ion-nav-back-button>
+    </ion-nav-bar>
+
+    <ion-content>
+        <div class="button-bar">
+            <a class="button" ng-click="isExisting = false" ng-class="(!isExisting ? 'button-calm' : 'button-stable' )">First Time User</a>
+            <a class="button" ng-click="isExisting = true" ng-class="(isExisting ? 'button-calm' : 'button-stable' )">Returning User</a>
+        </div>
+        <div class="list">
+            <label class="item item-input">
+                <span class="input-label" ng-class="(!email && email.length == 0 ? 'assertive' : '' )">Email</span>
+                <input type="text" ng-model="email">
+            </label>
+            <label class="item item-input">
+                <span class="input-label" ng-class="(!password && password.length == 0 ? 'assertive' : '' )">Password</span>
+                <input type="password" ng-model="password">
+            </label>
+            <label class="item item-input" ng-show="!isExisting">
+                <span class="input-label" ng-class="(password && password1 != password ? 'assertive' : '' )">Confirm Password</span>
+                <input type="password" ng-model="password1">
+            </label>
+            <div class="button-bar">
+                <a class="button button-balanced"
+                   ng-disabled="!email || !password"
+                   ng-click="loginEmail(email, password)"
+                   ng-show="isExisting">Sign In</a>
+
+                <a class="button button-balanced"
+                   ng-disabled="!(email && password && password1 == password)"
+                   ng-click="signUpWithEmail(email, password, password1)"
+                   ng-hide="isExisting">Sign Up</a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
