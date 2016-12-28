@@ -4,8 +4,8 @@
         <ion-nav-back-button></ion-nav-back-button>
     </ion-nav-bar>
 
-	<ion-nav-buttons side="secondary">
-		<button class="button button-clear icon icon-right ion-ios-cloud-upload-outline" ng-click="save()"></button>
+    <ion-nav-buttons side="secondary">
+        <button class="button button-clear icon icon-right" ng-click="save()" ng-class="(isPebble ? 'ion-android-watch' : 'ion-ios-cloud-upload-outline' )"></button>
     </ion-nav-buttons>
 
  	<ion-content>

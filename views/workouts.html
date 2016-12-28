@@ -9,8 +9,8 @@
 
 
    <ion-nav-buttons side="secondary">
-		<button class="button button-clear icon icon-right ion-ios-cloud-upload-outline" ng-click="save()"></button>
-  </ion-nav-buttons>
+		<button class="button button-clear icon icon-right" ng-click="save()" ng-class="(isPebble ? 'ion-android-watch' : 'ion-ios-cloud-upload-outline' )"></button>
+   </ion-nav-buttons>
 
  	<ion-content>
 
@@ -20,8 +20,35 @@
             <button class="button button-calm button-clear icon icon-right ion-help" ng-click="showHelp()"></button>
 		</div>
 
- 		<ion-list can-swipe="true" delegate-handle="workouts" show-reorder="showReorder">
- 			<ion-item ng-repeat="workout in data.d.workouts" ng-click="gotoWorkout({workout : workout, workouts : workouts})" class="item-icon-right">
+        <div class="list card" ng-if="data.fbRoutinesLoaded && !data.routineCount && !sampleWorkoutAdded">
+            <div class="item item-thumbnail-left item-text-wrap">
+                <img src="images/avatar.jpg">
+                <h2>Hi! I'm Jim</h2>
+                <p>Looks like you haven't added any routines yet!</p>
+                <p ng-hide="showGetStarted">
+                    <button class="button button-block button-positive" ng-click="showGetStarted = true">
+                    Help me get started
+                    </button>
+                </p>
+                <p>You can always <b>click the <span class="icon icon-right ion-help" style="black"></span> button on any screen for help</b></p>
+            </div>
+            <div class="item item-text-wrap" ng-if="showGetStarted">
+                <p><b>This screen lists all your routines</b>, and you can have many. You might have one for summer and a different routine for winter.</p>
+                <p><b>Routines are made up of workouts</b>. You might have a different workout per day, or just one workout that you love.</p>
+                <p>I don't provide routines yet, so you'll have to add your own - it's really easy:</p>
+                <p><b>Use the <span class="icon icon-right ion-plus" style="black"></span> button to add a routine</b></p>
+                <p ng-show="!isPebble"><b>Use the <span class="icon icon-right ion-ios-cloud-upload-outline" style="black"></span> button to save changes</b></p>
+                <p ng-show="isPebble"><b>Use the <span class="icon icon-right ion-android-watch" style="black"></span> button to save changes to the watch</b></p>
+
+
+                <button class="button button-block button-positive" ng-hide="sampleWorkoutAdded" ng-click="addSampleWorkout()">
+                    Add a Sample Workout for me
+                </button>
+            </div>
+        </div>
+
+ 		<ion-list can-swipe="true" delegate-handle="workouts" show-reorder="showReorder" id="routineList">
+            <ion-item ng-repeat="workout in data.d.workouts" ng-click="gotoWorkout({workout : workout, workouts : workouts})" class="item-icon-right">
  				<h2>
 		    	{{workout.name}}
 			    </h2>
@@ -38,7 +65,20 @@
 			    </ion-option-button>
 			    <ion-reorder-button class="ion-navicon" on-reorder="reorderItem(data.d.workouts, $fromIndex, $toIndex)"></ion-reorder-button>
  			</ion-item>
+            <ion-item ng-if="!data.fbRoutinesLoaded">
+                <h2>Loading Routines</h2>
+            </ion-item>
  		</ion-list>
 
- 	</ion-content>
+        <div class="list card" ng-if="sampleWorkoutAdded">
+            <div class="item item-thumbnail-left item-text-wrap">
+                <img src="images/avatar.jpg">
+                <h2>I added a sample workout</h2>
+                <p>There's not much to it.</p>
+                <p>Notice the <span class="icon icon-right ion-chevron-left" style="black"></span> on the right, that indicates that <b>you can swipe left to reveal more options</b></p>
+            </div>
+        </div>
+
+
+    </ion-content>
 </ion-view>

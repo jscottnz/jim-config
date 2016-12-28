@@ -1,11 +1,11 @@
-<ion-view view-title="Workout Days">
+<ion-view view-title="Routine Workouts">
 
     <ion-nav-bar class="bar-balanced">
         <ion-nav-back-button></ion-nav-back-button>
     </ion-nav-bar>
 
-	<ion-nav-buttons side="secondary">
-		<button class="button button-clear icon icon-right ion-ios-cloud-upload-outline" ng-click="save()"></button>
+    <ion-nav-buttons side="secondary">
+        <button class="button button-clear icon icon-right" ng-click="save()" ng-class="(isPebble ? 'ion-android-watch' : 'ion-ios-cloud-upload-outline' )"></button>
     </ion-nav-buttons>
  	<ion-content>
 
@@ -20,16 +20,19 @@
             <button class="button button-calm button-clear icon icon-right ion-help" ng-click="showHelp()"></button>
         </div>
 
-        <div class="list card">
-            <div class="item item-divider item-calm">
-                How to upload
+        <div class="list card" ng-if="!workout.days || sampleWorkoutAdded">
+            <div class="item item-thumbnail-left item-text-wrap">
+                <img src="images/avatar.jpg">
+                <h2>This is your Routine</h2>
+                <p>It is made up of 1 or more Workouts</p>
+                <p ng-if="!workout.days">Lets add a new Workout to this Routine</p>
             </div>
-            <div class="item item-text-wrap item-light">
-                <p>Choose a day below using the tick</p>
-                <p>Save to the cloud using the <span class="icon icon-right ion-ios-cloud-upload-outline" style="black"></span> button.</p>
-                <p>Saving from the Pebble app will upload to the watch</p>
+            <div class="item item-text-wrap">
+                <p><b>This screen lists your workouts for this routine</b>. You might have a workout per week day or maybe per body section - it's up to you</p>
+                <p><b>Before performing a workout</b> you need to: <ul><li>come to this screen <b>in your Pebble App</b></li> <li>use the <span class="icon icon-right ion-android-done" style="black"></span> button to <b>choose the workout</b></li> <li>Use the <span class="icon icon-right ion-android-watch" style="black"></span> button to <b>save the workout to the watch</b></li></ul></p>
             </div>
         </div>
+
 		<ion-list can-swipe="true" delegate-handle="days" show-reorder="showReorder">
  			<ion-item class="item-icon-left item-icon-right" ng-repeat="day in workout.days" ng-click="gotoDay({day : day, days : workout.days})">
  				<i class="icon ion-android-done" ng-class="{ balanced : day == dataService.chosenDay }" ng-click="chooseDay(day); $event.stopPropagation();"></i>
