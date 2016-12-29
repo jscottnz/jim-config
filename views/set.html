@@ -31,9 +31,21 @@
           Circuit Exercise
         </div>
 
+          <div class="list card" ng-if="!workout.days || (workout.days && !workout.days.length) || sampleWorkoutAdded">
+            <div class="item item-thumbnail-left item-text-wrap">
+                <img src="images/avatar.jpg">
+                <h2>This is a Circuit or Super set</h2>
+                <p>This allows you to make your workouts more sophisticated</p>
+            </div>
+            <div class="item item-text-wrap">
+                <p>The easiest way to think about circuits or super sets is as a series of different Exercises with one set each.</p>
+                <p>You can then make changes like incrementing the weight or doing 1 set of each exercise many times</p>
+                <p>For your convenience, after the first set is added, using <b><span class="icon icon-right ion-plus-round"></span></b> will <b>duplicate</b> the last set. This makes it easier to make small differences in each set</p>
+            </div>
+        </div>
 
         <div class="item item-text-wrap">
-          This set is part of a circuit or super set. Please select the exercise for this set.
+          This set a circuit or super set. Please select the first exercise for this set.
         </div>
 
         <button class="item button button-block button-balanced" ng-click="selectCircuitExercise(set)">
