@@ -20,7 +20,7 @@
             <span ng-if="set.wieght > 0"> X <span ng-if="set.units != 'bodyweight'">{{set.wieght}}</span> {{set.units}}</span>
           </p>
           <p ng-if="set.repsOrTime == 'time'">
-            <span>{{set.time}} {{set.timeSecondsOrMinutes}}</span>
+            <span>{{renderTime(set.time, set.timeSecondsOrMinutes)}} {{set.timeSecondsOrMinutes}}</span>
             <span ng-if="set.wieght > 0"> @ <span ng-if="set.units != 'bodyweight'">{{set.wieght}}</span> {{set.units}}</span>
           </p>
         </ion-item>

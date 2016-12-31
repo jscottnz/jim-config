@@ -33,7 +33,7 @@
         <h2 ng-if="set.repsOrTime == 'time'">
           <span ng-if="set.isCircuit && !set.circuitExercise.name">Add an exercise in Set</span>
           <span ng-if="(!set.isCircuit) || (set.isCircuit && set.circuitExercise.name)">{{set.circuitExercise.name || set.circuitExercise}}</span>
-          <span>{{set.time}} {{set.timeSecondsOrMinutes}}</span>
+          <span>{{renderTime(set.time, set.timeSecondsOrMinutes)}} {{set.timeSecondsOrMinutes}}</span>
           <span ng-if="set.wieght > 0"> @ {{set.wieght}} {{set.units}}</span>
         </h2>
         <p ng-if="set.rest">{{set.rest}} second rest</p>
