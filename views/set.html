@@ -20,7 +20,7 @@
             <span ng-if="set.wieght > 0"> X <span ng-if="set.units != 'bodyweight'">{{set.wieght}}</span> {{set.units}}</span>
           </p>
           <p ng-if="set.repsOrTime == 'time'">
-            <span>{{renderTime(set.time, set.timeSecondsOrMinutes)}} {{set.timeSecondsOrMinutes}}</span>
+            <span>{{renderTime(set.time)}}</span>
             <span ng-if="set.wieght > 0"> @ <span ng-if="set.units != 'bodyweight'">{{set.wieght}}</span> {{set.units}}</span>
           </p>
         </ion-item>
@@ -107,16 +107,16 @@
 
         <label class="item item-input item-select" ng-if="set.timeSecondsOrMinutes == 'seconds'">
           <div class="input-label">
-              Time (m:ss)
+              Seconds
           </div>
           <select ng-model="set.time" ng-options="renderTime(val) for val in secondsRange"></select>
         </label>
 
         <label class="item item-input item-select" ng-if="set.timeSecondsOrMinutes == 'minutes'">
           <div class="input-label">
-              Time (h:mm)
+              Minutes
           </div>
-          <select ng-model="set.time" ng-options="renderHoursMinutes(val) for val in minutesRange"></select>
+          <select ng-model="set.time" ng-options="renderTime(val) for val in minutesRange"></select>
         </label>
       </div>
 
