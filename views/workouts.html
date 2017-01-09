@@ -17,7 +17,7 @@
  		<div class="calm">
 			<button class="button button-calm button-clear icon icon-right ion-plus" ng-click="showAddNew($event)"></button>
 			<button class="button button-calm button-clear icon icon-right ion-shuffle" ng-click="showReorder = !showReorder"></button>
-            <!--button class="button button-calm button-clear icon icon-right ion-ios-list" ng-click="showLogs()"></button>-->
+            <button class="button button-calm button-clear icon icon-right ion-clipboard" ng-click="showLogs()"></button>
             <button class="button button-calm button-clear icon icon-right ion-help" ng-click="showHelp()"></button>
 		</div>
 
@@ -78,6 +78,10 @@
                 <p>There's not much to it.</p>
                 <p>Notice the <span class="icon icon-right ion-chevron-left" style="black"></span> on the right, that indicates that <b>you can swipe left to reveal more options</b></p>
             </div>
+        </div>
+
+        <div class="calm">
+            <button class="button button-calm button-clear button-small icon icon-left ion-ios-bell-outline" ng-click="gotoWhatsNew()">What's new with Jim</button>
         </div>
 
 

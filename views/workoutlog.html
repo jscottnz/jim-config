@@ -10,36 +10,30 @@
 
 
    <ion-nav-buttons side="secondary">
-		<!--<button class="button button-clear icon icon-right ion-ios-cloud-upload-outline" ng-click="save()"></button>-->
+
   </ion-nav-buttons>
 
  	<ion-content>
 
         <ul>
             <li class="item item-calm">
-                {{workoutLog.name}}
+                <h2><b>{{workoutLog.date}}:</b> {{workoutLog.name}}</h2>
+                <p>{{workoutLog.exercises.length}} exercises</p>
             </li>
         </ul>
 
  		<div class="calm">
-			<!--<button class="button button-calm button-clear icon icon-right ion-plus" ng-click="showAddNew($event)"></button>
-			<button class="button button-calm button-clear icon icon-right ion-shuffle" ng-click="showReorder = !showReorder"></button>
-            <button class="button button-calm button-clear icon icon-right ion-ios-list" ng-click="showLogs()"></button>
-            <button class="button button-calm button-clear icon icon-right ion-help" ng-click="showHelp()"></button>-->
+			<!--<button class="button button-calm button-clear icon icon-right ion-code-download" ng-click="download(workoutLog)"></button>-->
+            <button class="button button-calm button-clear icon icon-right ion-help" ng-click="showHelp()"></button>
 		</div>
 
  		<ion-list can-swipe="true" delegate-handle="workoutlog">
- 			<ion-item ng-repeat="set in workoutLog.sets" ng-click="viewWorkoutLog({workoutLog : workoutLog})" class="item-icon-right">
+ 			<ion-item ng-repeat="exercise in workoutLog.exercises" class="item-icon-right">
  				<h2>
-		    	{{set.name}}
+		    	{{exercise.name}}
 			    </h2>
-                <p>{{set.peformedReps}} Reps X {{set.performedWeight}} {{set.unit}}</p>
-
-			   	<i class="button button-icon icon ion-chevron-left" style="opacity : 0.1;"></i>
-
-			    <ion-option-button class="button-assertive" ng-click="deleteLog(workoutLog)">
-			      Delete
-			    </ion-option-button>
+                <p ng-if="exercise.isReps">{{exercise.peformedReps}} Reps X {{exercise.weightText}}</p>
+                <p ng-if="!exercise.isReps">{{exercise.performedTime}} {{exercise.secondsOrMinutes}} X {{exercise.weightText}}</p>
  			</ion-item>
  		</ion-list>
 

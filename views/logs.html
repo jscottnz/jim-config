@@ -15,26 +15,34 @@
 
  	<ion-content>
 
- 		<div class="calm">
-			<!--<button class="button button-calm button-clear icon icon-right ion-plus" ng-click="showAddNew($event)"></button>
-			<button class="button button-calm button-clear icon icon-right ion-shuffle" ng-click="showReorder = !showReorder"></button>
-            <button class="button button-calm button-clear icon icon-right ion-ios-list" ng-click="showLogs()"></button>
-            <button class="button button-calm button-clear icon icon-right ion-help" ng-click="showHelp()"></button>-->
-		</div>
+        <div class="calm">
+            <button class="button button-calm button-clear icon icon-right ion-help" ng-click="showHelp()"></button>
+        </div>
+
+        <div class="list card" ng-if="data.fbLogsLoaded && !data.logCount">
+            <div class="item item-thumbnail-left item-text-wrap">
+                <img src="images/avatar.jpg">
+                <h2>Come on? No logs yet!</h2>
+                <p>Come back here after you've put some sweat time in!</p>
+            </div>
+        </div>
 
  		<ion-list can-swipe="true" delegate-handle="logs">
  			<ion-item ng-repeat="workoutLog in data.d" ng-click="viewWorkoutLog(workoutLog)" class="item-icon-right">
  				<h2>
-		    	{{workoutLog.name}}
+                    <b>{{workoutLog.date}}:</b> {{workoutLog.name}}
 			    </h2>
-			    <p>{{workoutLog.sets.length}} sets</p>
+			    <p>{{workoutLog.exercises.length}} exercises</p>
 
-			   	<i class="button button-icon icon ion-chevron-left" style="opacity : 0.1;"></i>
+                <!--<i class="button button-icon icon ion-chevron-left" style="opacity : 0.1;"></i>
 
-			    <ion-option-button class="button-assertive" ng-click="deleteLog(workoutLog)">
-			      Delete
-			    </ion-option-button>
+             <ion-option-button class="button-assertive" ng-click="deleteLog(workoutLog)">
+               Delete
+             </ion-option-button>-->
  			</ion-item>
+            <ion-item ng-if="!data.fbLogsLoaded">
+                <h2>Loading Workout Logs</h2>
+            </ion-item>
  		</ion-list>
 
  	</ion-content>

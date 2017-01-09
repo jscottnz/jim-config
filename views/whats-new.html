@@ -1,0 +1,30 @@
+ <ion-view view-title="What's New?">
+
+     <ion-nav-bar class="bar-balanced">
+         <ion-nav-back-button></ion-nav-back-button>
+     </ion-nav-bar>
+
+   <ion-nav-buttons>
+
+   </ion-nav-buttons>
+
+
+   <ion-nav-buttons side="secondary">
+
+  </ion-nav-buttons>
+
+ 	<ion-content>
+
+
+ 		<ion-list>
+ 			<ion-item ng-repeat="item in data" class="item-text-wrap">
+ 				<h2>
+                    <b>{{item.date}}:</b> {{item.title}}
+			    </h2>
+			    <p>{{item.message}}</p>
+
+ 			</ion-item>
+ 		</ion-list>
+
+ 	</ion-content>
+</ion-view>
