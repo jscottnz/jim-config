@@ -44,6 +44,11 @@
     <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
     <link href="min.css" rel="stylesheet">
     <script src="scripts.min.js"></script>
-
+    <script>
+        Raven
+            .config('https://3c218aa06a0547e2beeacfc5cc7d7688@sentry.io/130037')
+            .addPlugin(Raven.Plugins.Angular)
+            .install();
+    </script>
     </body>
 </html>
