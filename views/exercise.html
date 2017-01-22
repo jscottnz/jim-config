@@ -13,9 +13,12 @@
  		<ul>
 		    <li class="item item-calm">
 		      {{exercise.name}}
+              <p ng-if="stats && !exercise.isCircuit"><b>Personal Best (PB)</b>: {{stats.pb.volume}}; {{stats.pb.peformedReps}}x{{stats.pb.performedWeight}} {{stats.pb.unit}}</p>
 		    </li>
-
 		</ul>
+
+        <canvas id="exerciseChart" ng-if="stats && !exercise.isCircuit" class="chart chart-line" chart-data="stats.data.d" chart-labels="stats.data.l" chart-options="stats.data.o" style="margin-top:20px"></canvas>
+
         <div class="calm">
             <button class="button button-calm button-clear icon icon-right ion-plus-round" ng-click="showAddNew($event, exercise)"></button>
             <button class="button button-calm button-clear icon icon-right ion-shuffle" ng-click="showReorder = !showReorder"></button>

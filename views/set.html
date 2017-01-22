@@ -23,6 +23,7 @@
             <span>{{renderTime(set.time)}}</span>
             <span ng-if="set.wieght > 0"> @ <span ng-if="set.units != 'bodyweight'">{{set.wieght}}</span> {{set.units}}</span>
           </p>
+
         </ion-item>
       </span>
 
@@ -64,6 +65,8 @@
       </ion-item>
 
     </ion-list>
+
+    <canvas id="setChart" ng-if="set.stats && exercise.isCircuit" class="chart chart-line" chart-data="set.stats.data.d" chart-labels="set.stats.data.l" chart-options="set.stats.data.o" style="margin-top:20px"></canvas>
 
     <span ng-if="!set.isCircuit || set.isCircuit && set.circuitExercise.name">
 

@@ -28,17 +28,11 @@
         </div>
 
  		<ion-list can-swipe="true" delegate-handle="logs">
- 			<ion-item ng-repeat="workoutLog in data.d" ng-click="viewWorkoutLog(workoutLog)" class="item-icon-right">
+ 			<ion-item ng-repeat="workoutLog in data.d | filter:{ workoutId : workoutId }" ng-click="viewWorkoutLog(workoutLog)" class="item-icon-right">
  				<h2>
                     <b>{{workoutLog.date}}:</b> {{workoutLog.name}}
 			    </h2>
 			    <p>{{workoutLog.exercises.length}} exercises</p>
-
-                <!--<i class="button button-icon icon ion-chevron-left" style="opacity : 0.1;"></i>
-
-             <ion-option-button class="button-assertive" ng-click="deleteLog(workoutLog)">
-               Delete
-             </ion-option-button>-->
  			</ion-item>
             <ion-item ng-if="!data.fbLogsLoaded">
                 <h2>Loading Workout Logs</h2>
