@@ -978,7 +978,7 @@ try {
   newCrittercism = new CrittercismClass();
   if ((typeof Crittercism) == "undefined") {
     Crittercism = newCrittercism;
-    if(!!module) {
+    if(typeof module != "undefined") {
       module.exports = Crittercism;
     }
   }
