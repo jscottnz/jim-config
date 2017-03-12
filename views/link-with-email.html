@@ -1,0 +1,43 @@
+<ion-view view-title="Link Account">
+
+    <ion-nav-bar class="bar-balanced">
+    </ion-nav-bar>
+
+    <ion-nav-buttons>
+        <button class="button button-clear icon icon-right ion-ios-close-outline" ng-click="signout()"></button>
+    </ion-nav-buttons>
+
+    <ion-content>
+
+        <div class="list card">
+            <div class="item item-divider item-calm">
+                Link to Email Account
+            </div>
+            <div class="item item-text-wrap item-light">
+                <p>The Pebble App is not compatible with Google's new sign in rules.</p>
+                <p>Therefore <b>we must disallow sign in with Google accounts</b> and create email/password logins.</p>
+                <p>Please enter your email address (you can use your google one) and create a password for using with Jim!</p>
+            </div>
+        </div>
+
+        <div class="list">
+            <label class="item item-input">
+                <span class="input-label" ng-class="(!email && email.length == 0 ? 'assertive' : '' )">Email</span>
+                <input type="text" ng-model="email">
+            </label>
+            <label class="item item-input">
+                <span class="input-label" ng-class="(!password && password.length == 0 ? 'assertive' : '' )">Password</span>
+                <input type="password" ng-model="password">
+            </label>
+            <label class="item item-input" ng-show="!isExisting">
+                <span class="input-label" ng-class="(password && password1 != password ? 'assertive' : '' )">Confirm Password</span>
+                <input type="password" ng-model="password1">
+            </label>
+            <div class="button-bar">
+                <a class="button button-balanced"
+                   ng-disabled="!email || !password"
+                   ng-click="linkEmail(email, password)">Create Email Login</a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

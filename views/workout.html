@@ -20,6 +20,9 @@
             <button class="button button-calm button-clear icon icon-right ion-help" ng-click="showHelp()"></button>
         </div>
 
+        <canvas id="testChart" class="chart chart-line" chart-data="chart.data.d" chart-labels="chart.data.l" chart-options="chart.data.o" style="margin-top:20px"></canvas>
+
+
         <div class="list card" ng-if="!workout.days || (workout.days && !workout.days.length) || sampleWorkoutAdded">
             <div class="item item-thumbnail-left item-text-wrap">
                 <img src="images/avatar.jpg">
