@@ -32,8 +32,8 @@
  				<h2>
 		    	{{exercise.name}}
 			    </h2>
-                <p ng-if="exercise.isReps">{{exercise.peformedReps}} Reps X {{exercise.weightText}}</p>
-                <p ng-if="!exercise.isReps">{{exercise.performedTime}} {{exercise.secondsOrMinutes}} X {{exercise.weightText}}</p>
+                <p ng-if="exercise.isReps">{{exercise.peformedReps}} Reps X {{exercise.performedWeight}} {{exercise.units}}</p>
+                <p ng-if="!exercise.isReps">{{exercise.performedTime}} {{exercise.secondsOrMinutes}} X {{exercise.performedWeight}}</p>
  			</ion-item>
  		</ion-list>
 
