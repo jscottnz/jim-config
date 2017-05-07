@@ -14,7 +14,25 @@
 
  	<ion-content>
 
- 		<div class="calm">
+        <div class="list card">
+            <div class="item item-thumbnail-left item-text-wrap" ng-class="( data.fbRoutinesLoaded && !chosenDay.d.id ? 'item-calm' : 'item-light' )">
+                <img src="images/avatar.jpg">
+
+                <h2 ng-if="!data.fbRoutinesLoaded">Just one moment...</h2>
+                <p ng-if="!data.fbRoutinesLoaded">Loading your routines</p>
+
+                <h2 ng-if="data.fbRoutinesLoaded && !chosenDay.d.id">No current workout</h2>
+                <p ng-if="data.fbRoutinesLoaded && !chosenDay.d.id">Use the <span class="icon icon-right ion-android-done"></span> to choose a Workout from one of the Routines below</p>
+
+                <p ng-if="data.fbRoutinesLoaded && chosenDay.d.id">Current Workout:</p>
+                <h2 ng-if="data.fbRoutinesLoaded && chosenDay.d.id">{{chosenDay.d.workoutName}}: {{chosenDay.d.name}}</h2>
+
+                <p ng-if="data.fbRoutinesLoaded && !data.d.pushedToWatch" style="color: #e42112; font-size: xx-small">Not Synced with watch. Use the Pebble App</p>
+                <p ng-if="data.fbRoutinesLoaded && data.d.pushedToWatch" style="font-size: xx-small">Synced with watch:<br/>{{data.d.pushedToWatch}}</p>
+            </div>
+        </div>
+
+ 		<div class="calm" ng-if="data.fbRoutinesLoaded">
 			<button class="button button-calm button-clear icon icon-right ion-plus" ng-click="showAddNew($event)"></button>
 			<button class="button button-calm button-clear icon icon-right ion-shuffle" ng-click="showReorder = !showReorder"></button>
             <button class="button button-calm button-clear icon icon-right ion-clipboard" ng-click="showLogs()"></button>
@@ -66,9 +84,6 @@
 			    </ion-option-button>
 			    <ion-reorder-button class="ion-navicon" on-reorder="reorderItem(data.d.workouts, $fromIndex, $toIndex)"></ion-reorder-button>
  			</ion-item>
-            <ion-item ng-if="!data.fbRoutinesLoaded">
-                <h2>Loading Routines</h2>
-            </ion-item>
  		</ion-list>
 
         <div class="list card" ng-if="sampleWorkoutAdded">
