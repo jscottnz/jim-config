@@ -13,7 +13,6 @@
    </ion-nav-buttons>
 
  	<ion-content>
-
         <div class="list card">
             <div class="item item-thumbnail-left item-text-wrap" ng-class="( data.fbRoutinesLoaded && !chosenDay.d.id ? 'item-calm' : 'item-light' )">
                 <img src="images/avatar.jpg">
@@ -27,8 +26,8 @@
                 <p ng-if="data.fbRoutinesLoaded && chosenDay.d.id">Current Workout:</p>
                 <h2 ng-if="data.fbRoutinesLoaded && chosenDay.d.id">{{chosenDay.d.workoutName}}: {{chosenDay.d.name}}</h2>
 
-                <!--<p ng-if="data.fbRoutinesLoaded && !data.d.pushedToWatch" style="color: #e42112; font-size: xx-small">Not Synced with watch. Use the Pebble App</p>
-                <p ng-if="data.fbRoutinesLoaded && data.d.pushedToWatch" style="font-size: xx-small">Synced with watch:<br/>{{data.d.pushedToWatch}}</p>-->
+                <p ng-if="saved && data.fbRoutinesLoaded && !data.d.pushedToWatch" style="color: #e42112; font-size: xx-small">Saved {{lastSaved()}}, but not synced with watch. Use the Pebble App</p>
+                <p ng-if="data.fbRoutinesLoaded && data.d.pushedToWatch" style="font-size: xx-small">Synced with watch {{lastSynced()}}</p>
             </div>
         </div>
 
