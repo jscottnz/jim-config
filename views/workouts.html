@@ -13,6 +13,7 @@
    </ion-nav-buttons>
 
  	<ion-content>
+
         <div class="list card">
             <div class="item item-thumbnail-left item-text-wrap" ng-class="( data.fbRoutinesLoaded && !chosenDay.d.id ? 'item-calm' : 'item-light' )">
                 <img src="images/avatar.jpg">
@@ -74,6 +75,10 @@
 			    <p ng-if="workout.days.length != 0">{{workout.days.length}} days</p>
 
 			   	<i class="button button-icon icon ion-chevron-left" style="opacity : 0.1;"></i>
+
+                <ion-option-button class="button-balanced" ng-click="cloneWorkout(data.d.workouts, workout)">
+                    Copy
+                </ion-option-button>
 
 			    <ion-option-button class="button-positive" ng-click="editWorkoutName(workout)">
 			      Rename
