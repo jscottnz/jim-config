@@ -21,6 +21,10 @@
                 <h2 ng-if="!data.fbRoutinesLoaded">Just one moment...</h2>
                 <p ng-if="!data.fbRoutinesLoaded">Loading your routines</p>
 
+                <h2 ng-if="data.fbRoutinesLoaded">How to sync?</h2>
+                <p ng-if="data.fbRoutinesLoaded">Make sure the green tick is next to the workout you want to perform, then on the pebble phone app use the watch button in the top right to send the workout to the watch.</p>
+
+                <!--
                 <h2 ng-if="data.fbRoutinesLoaded && !data.d.chosenDay.id">No current workout</h2>
                 <p ng-if="data.fbRoutinesLoaded && !data.d.chosenDay.id">Use the <span class="icon icon-right ion-android-done"></span> to choose a Workout from one of the Routines below</p>
 
@@ -30,6 +34,7 @@
                 <p ng-if="!unsaved && data.fbRoutinesLoaded && data.d.chosenDay.id && !data.d.chosenDay.pushedToWatch" style="color: #e42112; font-size: xx-small">Saved {{lastSaved()}}, but not synced with watch. Use the Pebble App</p>
                 <p ng-if="unsaved && data.fbRoutinesLoaded && data.d.chosenDay.id && !data.d.chosenDay.pushedToWatch" style="color: #e42112; font-size: xx-small">Not saved. Upload to save</p>
                 <p ng-if="data.fbRoutinesLoaded && data.d.chosenDay.pushedToWatch" style="font-size: xx-small">Synced with watch {{lastSynced()}}</p>
+                -->
             </div>
         </div>
 
