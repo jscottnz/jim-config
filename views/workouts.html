@@ -15,20 +15,21 @@
  	<ion-content>
 
         <div class="list card">
-            <div class="item item-thumbnail-left item-text-wrap" ng-class="( data.fbRoutinesLoaded && !chosenDay.d.id ? 'item-calm' : 'item-light' )">
+            <div class="item item-thumbnail-left item-text-wrap" ng-class="( data.fbRoutinesLoaded && !data.d.chosenDay.id ? 'item-calm' : 'item-light' )">
                 <img src="images/avatar.jpg">
 
                 <h2 ng-if="!data.fbRoutinesLoaded">Just one moment...</h2>
                 <p ng-if="!data.fbRoutinesLoaded">Loading your routines</p>
 
-                <h2 ng-if="data.fbRoutinesLoaded && !chosenDay.d.id">No current workout</h2>
-                <p ng-if="data.fbRoutinesLoaded && !chosenDay.d.id">Use the <span class="icon icon-right ion-android-done"></span> to choose a Workout from one of the Routines below</p>
+                <h2 ng-if="data.fbRoutinesLoaded && !data.d.chosenDay.id">No current workout</h2>
+                <p ng-if="data.fbRoutinesLoaded && !data.d.chosenDay.id">Use the <span class="icon icon-right ion-android-done"></span> to choose a Workout from one of the Routines below</p>
 
-                <p ng-if="data.fbRoutinesLoaded && chosenDay.d.id">Current Workout:</p>
-                <h2 ng-if="data.fbRoutinesLoaded && chosenDay.d.id">{{chosenDay.d.workoutName}}: {{chosenDay.d.name}}</h2>
+                <p ng-if="data.fbRoutinesLoaded && data.d.chosenDay.id">Current Workout:</p>
+                <h2 ng-if="data.fbRoutinesLoaded && data.d.chosenDay.id">{{data.d.chosenDay.workoutName}}: {{data.d.chosenDay.name}}</h2>
 
-                <p ng-if="saved && data.fbRoutinesLoaded && !data.d.pushedToWatch" style="color: #e42112; font-size: xx-small">Saved {{lastSaved()}}, but not synced with watch. Use the Pebble App</p>
-                <p ng-if="data.fbRoutinesLoaded && data.d.pushedToWatch" style="font-size: xx-small">Synced with watch {{lastSynced()}}</p>
+                <p ng-if="!unsaved && data.fbRoutinesLoaded && data.d.chosenDay.id && !data.d.chosenDay.pushedToWatch" style="color: #e42112; font-size: xx-small">Saved {{lastSaved()}}, but not synced with watch. Use the Pebble App</p>
+                <p ng-if="unsaved && data.fbRoutinesLoaded && data.d.chosenDay.id && !data.d.chosenDay.pushedToWatch" style="color: #e42112; font-size: xx-small">Not saved. Upload to save</p>
+                <p ng-if="data.fbRoutinesLoaded && data.d.chosenDay.pushedToWatch" style="font-size: xx-small">Synced with watch {{lastSynced()}}</p>
             </div>
         </div>
 

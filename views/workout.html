@@ -35,7 +35,7 @@
 
 		<ion-list can-swipe="true" delegate-handle="days" show-reorder="showReorder">
  			<ion-item class="item-icon-left item-icon-right" ng-repeat="day in workout.days" ng-click="gotoDay({day : day, days : workout.days})">
- 				<i class="icon ion-android-done" ng-class="{ balanced : day.id == dataService.chosenDay.d.id }" ng-click="chooseDay(day, workout); $event.stopPropagation();"></i>
+ 				<i class="icon ion-android-done" ng-class="{ balanced : day.id == data.d.chosenDay.id }" ng-click="chooseDay(day, workout); $event.stopPropagation();"></i>
  				<h2>
 		    		{{day.name}}
 			    </h2>
